@@ -45,8 +45,21 @@ $(document).ready(function(){
     }
   });
 });
-
-
+var x=document.getElementById("myFrame");
+function getLocation()
+{
+if (navigator.geolocation)
+{
+navigator.geolocation.getCurrentPosition(showPosition);
+}
+else{x.innerHTML="Geolocation is not supported by this browser.";}
+}
+function showPosition(position)
+{
+x.innerHTML="Latitude: " + position.coords.latitude + 
+"<br>Longitude: " + position.coords.longitude;  
+}
+getLocation()
 
 var submitButton = document.getElementById("submit_form");
 var form = document.getElementById("email_form");
@@ -117,6 +130,9 @@ if($('#email').val()!=0)
  
   if ($('#message').val() && validatePhoneSubmit() && validateEmailReg() && $('#subject').val()) {
     $('.btnSubmit').removeClass('disabled');
+  }
+  if (!$('#message').val() || !validatePhoneSubmit() || !validateEmailReg() || !$('#subject').val()) {
+    $('.btnSubmit').addClass('disabled');
   }
 }
 
